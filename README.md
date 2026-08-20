@@ -1,32 +1,51 @@
-# Network Intrusion Prevention System
+# Network Intrusion Prevention System (NIPS)
 
-Network Intrusion Prevention System (NIPS) with real-time packet inspection, custom rule-based attack detection and mitigation, and detailed logging for analysis.
+A real-time Network Intrusion Prevention System (NIPS) built with Python, Scapy, NetfilterQueue, and `iptables`. Features packet inspection, custom signature-based rule matching, automated threat mitigation (packet dropping & IP blocking), and attack event logging.
 
-## Features
+## 🚀 Features
 
-+ ```Packet Inspection``` : Inspects network packets in real time to detect and mitigate malicious activities.
-+ ```Custom Rules``` : Implements signature-based rules for detecting attacks such as SYN flood, ICMP/UDP floods, SQL injection, XSS, and directory traversal etc.
-+ ```Logging``` : Records both attack events and network traffic for monitoring and analysis.
-  
-## Project Structure
+- **Real-Time Packet Inspection**: Intercepts network packets live using `NetfilterQueue` and `Scapy`.
+- **Custom Signature Rules**: Implements rule matching for SYN floods, ICMP/UDP floods, SQL Injection, XSS, and directory traversal.
+- **Automated Mitigation**: Automatically drops malicious packets and inserts `iptables` drop rules to block attacking IPs.
+- **Structured Security Logging**: Exports detailed attack logs (`attackLogs.csv`) and analyzed traffic records (`trafficLogs.csv`).
 
-+ ```main.py``` : Entry point; coordinates all modules.
-+ ```processPackets.py``` : Queue and Processes raw network packets to extract key attributes.
-+ ```matchRules.py``` : Matches packet attributes with Custom rules and triggers actions via ```doActions.py```.
-+ ```doActions.py``` : Executes corresponding actions based on detected attacks.
-+ ```storeLogs.py``` : Stores appropriate logs for various attacks.
-+ ```customRules.txt``` : Contains custom rules based on attacks signature.
-+ ```attackLogs.csv``` : Stores logs of detected attacks.
-+ ```trafficLogs.csv``` : Stores logs of analyzed network traffic.
+## 📁 Project Structure
 
-## Installation
- 
-```sh
-  sudo apt install iptables
-  pip install scapy
-  pip install NetfilterQueue
-  git clone https://github.com/Kr1shnam00rth1/NetWonIPS/
-  cd NetWonIPS
-  sudo python3 main.py
 ```
-+ Feel free to customize the ```customRules.txt``` file to define the working of IPS.
+Network-Intrusion-Prevention-System/
+├── main.py                # Core entry point and NetfilterQueue loop
+├── processPackets.py      # Extracts IP, TCP, UDP, and payload attributes
+├── matchRules.py          # Signature matching engine against custom rules
+├── doActions.py            # Executes mitigation (packet drop & firewall rules)
+├── storeLogs.py           # Ingestion & CSV logging utility
+├── customRules.txt        # Signature rule definition file
+├── attackLogs.csv         # Log storage for flagged attack events
+├── trafficLogs.csv        # Log storage for processed traffic
+├── LICENSE                # Open source license
+└── README.md              # Documentation
+```
+
+## 🛠️ Installation & Setup
+
+### Prerequisites
+
+```bash
+sudo apt update
+sudo apt install iptables python3-pip
+pip install scapy NetfilterQueue
+```
+
+### Running the NIPS Engine
+
+```bash
+# Clone repository
+git clone https://github.com/gauthamram57/Network-Intrusion-Prevention-System.git
+cd Network-Intrusion-Prevention-System
+
+# Run NIPS engine with root privileges
+sudo python3 main.py
+```
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
